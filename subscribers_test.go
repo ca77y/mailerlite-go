@@ -107,7 +107,7 @@ func TestCanCreateSubscrber(t *testing.T) {
 
 	client.SetHttpClient(testClient)
 
-	options := &mailerlite.Subscriber{
+	options := &mailerlite.NewSubscriber{
 		Email: "test@test.com",
 	}
 

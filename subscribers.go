@@ -47,6 +47,18 @@ type Subscriber struct {
 	OptinIP        string                 `json:"optin_ip,omitempty"`
 }
 
+type NewSubscriber struct {
+	Email          string   `json:"email"`
+	Fields         Fields   `json:"fields"`
+	GroupIds       []string `json:"groups"`
+	Status         string   `json:"status"`
+	SubscribedAt   string   `json:"subscribed_at"`
+	IPAddress      string   `json:"ip_address"`
+	OptedInAt      string   `json:"opted_in_at"`
+	OptinIP        string   `json:"optin_ip"`
+	UnsubscribedAt string   `json:"unsubscribed_at"`
+}
+
 type Fields struct {
 	Name     string `json:"name"`
 	LastName string `json:"last_name"`
@@ -118,7 +130,7 @@ func (s *SubscriberService) Get(ctx context.Context, options *GetSubscriberOptio
 	return root, res, nil
 }
 
-func (s *SubscriberService) Create(ctx context.Context, subscriber *Subscriber) (*rootSubscriber, *Response, error) {
+func (s *SubscriberService) Create(ctx context.Context, subscriber *NewSubscriber) (*rootSubscriber, *Response, error) {
 	req, err := s.client.newRequest(http.MethodPost, subscriberEndpoint, subscriber)
 	if err != nil {
 		return nil, nil, err
@@ -133,7 +145,7 @@ func (s *SubscriberService) Create(ctx context.Context, subscriber *Subscriber) 
 	return root, res, nil
 }
 
-func (s *SubscriberService) Upsert(ctx context.Context, subscriber *Subscriber) (*rootSubscriber, *Response, error) {
+func (s *SubscriberService) Upsert(ctx context.Context, subscriber *NewSubscriber) (*rootSubscriber, *Response, error) {
 	return s.Create(ctx, subscriber)
 }
 
